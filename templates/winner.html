@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Past Winners 
+{% endblock title %}
+{% block content %}
+
+<div class="row min-vh-90 flex flex-row justify-center items-center">
+  <div class="col-11">
+  <h4 class="py-3 text-center bb ttu tracked">Past Winners</h4>
+  {% if winners %}
+    {% for i in winners %}
+      <div class="card my-4 inner_shadow" >
+        <img class="card-img-top" src="{{i.winning_product_image.url}}" alt="{{i.winning_product_image.url }}">
+          <div class="card-body">
+            <h5 class="card-title text-center"><i class="fas fa-user-tie"></i> &ensp;{{i.user_name }}</h5>
+              <p class="card-text text-center bt">Winning Bid : <b>{{i.winning_bid_value }}</b></p>
+          </div>
+      </div>
+    {% endfor %}
+    {% else %}
+    <div class="vh-100 bg-white w-100 flex flex-row justify-center ">
+      <div class="vh-75 flex flex-row items-center justify-cente ">No Winner list to show!</div>
+    </div>
+  {% endif %}
+  </div>
+</div>
+
+
+{% endblock content %}
+

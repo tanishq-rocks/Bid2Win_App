@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Live Session
+{% endblock title %}
+
+{% block content %}
+
+<div class="row min-vh-90 flex flex-row justify-center items-center">
+    <div class="col-11">
+        <h4 class="py-3 text-center bb ttu tracked">Live Session</h4>
+        
+        <div id="liveSession" class="row">
+            {% if products %}
+                {% for i in products %}
+                {% comment %} {{i.end_time}} {% endcomment %}
+                {% comment %} {{msg}} {% endcomment %}
+                <div class="card my-3 shadow" >
+                    <div class="ba text-center ttu f7 f6-ns bg-dark text-white pa2 pa3-ns tracked" >Session End Time: {{i.end_time}}</div>
+                    <img class="card-img-top inner_shadow" src="{{i.product_image.url}}" alt="{{i.product_name}}">
+                    <div class="card-body">
+                        <div class="card-title flex flex-row justify-between items-center"><h6> {{i.product_name}} </h6> <h6> &#x20B9 {{i.product_price}} </h6></div>
+                        <div class="f7"> <b>Product Description : </b> </div>
+                        <p class="card-text text-wrap f7"> {{i.product_dcrp}}</p>
+                        <a href="{% url 'selection_page' i.id %}" class="btn btn-outline-success btn-block"> Bid</a>
+                        {% comment %} {{i.id}} {% endcomment %}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="vh-100 bg-white w-100 flex flex-row justify-center ">
+                    <div class="vh-75 flex flex-row items-center justify-cente ">No Seesion going on!</div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

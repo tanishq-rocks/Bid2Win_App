@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block link %}
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+	<link rel="stylesheet" href="{% static './FAQ/css/font-awesome.min.css' %}"/>
+	<link rel="stylesheet" href="{% static './FAQ/css/flaticon.css' %}"/>
+	<link rel="stylesheet" href="{% static './FAQ/css/owl.carousel.min.css' %}"/>
+	<link rel="stylesheet" href="{% static './FAQ/css/style.css' %}"/>
+{% endblock link %}
+
+{% block title %}
+FAQ
+{% endblock title %}
+
+{% block content %}
+<section class="faq-section pt-4 min-vh-90">
+		<div class="container">
+			<div class="section-title">
+				<img src="{% static './FAQ/img/section-title-icon.png' %}" alt="#">
+				<p>The best out there</p>
+				<h2>FAQ</h2>
+			</div>
+			  
+			<div id="accordion" class="accordion-area faq-accordion">
+			</div>
+		</div>
+</section>
+
+<script src="{% static './FAQ/js/database.js' %}"></script>
+<script src="{% static './FAQ/js/htmlGenerator.js' %}"></script>
+<script src="{% static './FAQ/js/main.js' %}"></script>
+<script src="{% static './FAQ/js/form.js' %}"></script>
+{% endblock content %}

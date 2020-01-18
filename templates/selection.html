@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block title %}
+Select Bid
+{% endblock title %}
+
+{% block content %} 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();  
+        
+        $('input[type=checkbox]').on('change', function () {
+            //console.log($(this).attr("id"));
+            let id = $(this).attr("id")
+            //console.log(id);
+            //let checkbox = document.getElementById(id)
+            //console.log(checkbox);
+            let checkbox_label = $(`[for=${id}]`)
+            if (checkbox_label.hasClass('bg-dark') ) {
+                // console.log('Hii')
+                checkbox_label.removeClass('text-white')
+                checkbox_label.addClass('text-dark')
+                checkbox_label.removeClass('bg-dark')
+                checkbox_label.addClass('bg-white')
+            } else {
+                // console.log('Bye')
+                checkbox_label.removeClass('text-dark')
+                checkbox_label.addClass('text-white')
+                checkbox_label.removeClass('bg-white')
+                checkbox_label.addClass('bg-dark')
+            }
+        });
+        
+    });
+
+    let validate = (a_bids) => {
+        let checks = document.getElementsByClassName('checkme');
+        let count = 0;
+        for(i=0; i<10000; i++){
+            if(checks[i].checked === true){
+                count++;
+            }
+        }
+        //console.log('outer1');
+        if(count != 0){
+            if(count <= a_bids){
+                //console.log('inner');
+                $("#form1").submit();
+            }else{
+                let node = `<div class="mb0 alert alert-warning alert-dismissible fade w-100 show" role="alert">
+                    <strong>Hey!, </strong> You don't have enough available bids
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>`
+                $('.alert_window').append(node);
+            }
+        }else{
+            let node = `<div class="mb0 alert alert-warning alert-dismissible fade w-100 show" role="alert">
+                    <strong>Hey!, </strong> You didn't select any input
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>`
+                $('.alert_window').append(node);
+        }
+    }
+    
+</script>
+
+{% comment %} {{unique_bids}}
+{{repeated_bids}}
+{{a_bids.0.available_bid}} 
+{{p_id}} {% endcomment %}
+<div class="row flex flex-row justify-center items-center min-vh-90 " id="display_body">
+    <div class="col-11">
+
+        <div class="row py-1 bb px-4 mt3 flex flex-row justify-center items-center">
+            <div class="f4 ttu tracked">Select Unique Bids</div>
+        </div>
+        
+        <div class="row flex flex-row justify-center items-center pt-3 " >
+            <div class="w-100 shadow-sm" tabindex="0" data-toggle="tooltip" data-placement="bottom" title="You have {{a_bids.0.available_bid}} bids remaining">
+                <button class="btn br0 btn-success btn-block" style="pointer-events: none;" type="button" disabled>
+                    Available Bids &nbsp<span class="badge badge-light">{{a_bids.0.available_bid}}</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="row alert_window"> 
+            {% comment %} alert appear here {% endcomment %}
+        </div>
+        <form id="form1" action="{% url 'selection_page' p_id %}" method="post">
+            {% csrf_token %}
+            <div class="row flex-row flex justify-center mv3 py-2 f7 items-center vh-50 overflow-auto " style = "-moz-box-shadow:inset 0 0 10px #000000; -webkit-box-shadow: inset 0 0 10px #000000; box-shadow: inset 0 0 10px #000000;" >
+                {% for i in 100|range_trunc:0.01 %}
+                    {% if i in unique_bids %}
+                        <input type="checkbox" class="dn checkme " name="check_box" id="{{i|floatvalue}}" value="{{i}}" disabled/>
+                        <label for="{{i|floatvalue}}" class="col-2 br-pill f7 m-1 btn text-white bg-primary border-primary grow" data-toggle="tooltip" title="Unique" disabled>{{i}}</label>
+                    {% elif i in repeated_bids %}
+                        <input type="checkbox" class="dn checkme" name="check_box" id="{{i|floatvalue}}" value="{{i}}" disabled/>
+                        <label for="{{i|floatvalue}}" class="col-2 br-pill f7 m-1 btn text-white bg-danger border-danger grow" data-toggle="tooltip" title="Not Unique" disabled>{{i}}</label>   
+                    {% else %}
+                        <input type="checkbox" class="dn checkme" name="check_box" id="{{i|floatvalue}}"  value="{{i}}"/>
+                        <label for="{{i|floatvalue}}" class="col-2 br-pill f7 m-1 btn text-dark bg-white border-dark grow">{{i}}</label>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </form>
+            <div class="col-12 p-0 mt0 flex flex-row justify-center" style="position:-webkit-sticky; position:sticky; bottom:20px; ">
+                <button onclick="validate({{a_bids.0.available_bid}})" id="confirmButton" class="btn btn-dark br-pill w-50 shadow-1 bg-dark ">Place Bid</button>
+            </div>
+    </div>
+    {% comment %} <div class="row p-3 mt3 ">
+            <button class="btn btn-dark btn-block" type="button" data-toggle="collapse" data-target="#information" aria-expanded="false" aria-controls="information">
+               (Hint) <span><i class="fas fa-arrow-right"></i></span> Choose a bid <span><i class="fas fa-arrow-left"></i></span> (Hint)
+            </button>
+    </div> {% endcomment %}
+    <div class="col-12 mt1">
+    <div class="py-3 m-0" >
+            <div class="card-header text-center bg-dark text-light" data-toggle="collapse" data-target="#information" aria-expanded="false" aria-controls="information">
+                <div class="f6">Hint</div>
+            </div>
+            <div class=" card card-body text-center" id="information">
+                <div class="f7">Black : Bids are not selected</div>
+                <hr />
+                <div class="f7">Blue : Selected Bids are Unique</div>
+                <hr />
+                <div class="f7">Red : Selected Bids are Repeated</div>
+            </div>
+    </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" </script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" </script>
+{% endblock content %}

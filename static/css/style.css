@@ -1,0 +1,37 @@
+.vh-80{
+    height: 80vh !important
+}
+
+.vh-85{
+    height: 85vh !important
+}
+
+.vh-90{
+    height: 90vh !important
+}
+
+.vh-95{
+    height: 95vh !important
+}
+
+.min-vh-80{
+    min-height: 80vh !important
+}
+
+.min-vh-85{
+    min-height: 85vh !important
+}
+
+.min-vh-90{
+    min-height: 90vh !important
+}
+
+.min-vh-95{
+    min-height: 95vh !important
+}
+
+.inner_shadow{
+    -webkit-box-shadow: inset 0px 0px 18px -5px rgba(0,0,0,0.72);
+    -moz-box-shadow: inset 0px 0px 18px -5px rgba(0,0,0,0.72);
+    box-shadow: inset 0px 0px 18px -5px rgba(0,0,0,0.72);
+}

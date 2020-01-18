@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Bid 2 Win
+{% endblock title %}
+
+{% block content %}
+<div class="vh-85 flex flex-column justify-center items-center"> 
+
+<div class="f3 tc db mv3">
+{% comment %} Account related to this gmail <br /> {{email}} <br /> already exist {% endcomment %}
+Account already exist, 
+</div>
+<div class="f4 tc db ">
+Take me to <a href="{% url 'login' %}" >login page</a>
+</div>
+</div>
+
+{% endblock content %}

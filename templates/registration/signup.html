@@ -1,0 +1,169 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Bidwin Register</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{% static 'Login/css/main.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/tachyons.css' %}">
+	<script src="https://kit.fontawesome.com/666c9e896e.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+	<div class="limiter flex flex-row justify-center items-center">
+		<div class="container-login100" style="background: linear-gradient(30deg, #0b0080 0%, #4c007f 16%, #73007d 33%, #97007b 50%, #ba0079 66%, #dc0076 83%, #ff0073 100%);">
+			<div class="wrap-login100">
+				<form id="login-form" method="post" action="{% url 'signup_page' %}" class="login100-form validate-form" ">
+                    {% csrf_token %}  
+					<span class="login100-form-title p-b-30">
+						<i class="fas fa-user-alt " style="color:blue"></i>
+					</span>
+					<span class=" ttu tracked login100-form-title p-b-48" style="color:blue">
+						REGISTER
+					</span>
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid: somevalue@gmail.com">
+						<input class="input100" class="form-control" type="text" name="email" id="email" autocomplete="off" required >
+						<span class="focus-input100" data-placeholder="Email" ></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<span class="btn-show-pass">
+							<i class="fas fa-eye "></i>
+                        </span>
+						<input class="input100" class="form-control" type="password" name="pass1" id="pass1" autocomplete="off" required>
+						<span class="focus-input100" data-placeholder="Password"></span>
+					</div>
+                    <div class="wrap-input100 validate-input" data-validate="Enter password">
+						<span class="btn-show-pass">
+							<i class="fas fa-eye "></i>
+                        </span>
+						<input class="input100" class="form-control" type="password" name="pass2" id="pass2" autocomplete="off" required>
+						<span class="focus-input100" data-placeholder="Password"></span>
+					</div>
+                    <div class="tc w-100">{{msg}}</div>
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button type="submit" class="login100-form-btn">
+								SignUp
+							</button>
+						</div>
+					</div>
+
+					<div class="p-t-85" style="text-align: center;">
+						<span class="txt1">
+							Already have an account?
+						</span>
+
+						<a class="txt2" href="{% url 'login' %}">
+							Login
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script>
+	
+(function ($) {
+    "use strict";
+
+
+    /*==================================================================
+    [ Focus input ]*/
+    $('.input100').each(function(){
+        $(this).on('blur', function(){
+            if($(this).val().trim() != "") {
+                $(this).addClass('has-val');
+            }
+            else {
+                $(this).removeClass('has-val');
+            }
+        })    
+    })
+  
+  
+    /*==================================================================
+    [ Validate ]*/
+    var input = $('.validate-input .input100');
+
+    $('.validate-form').on('submit',function(){
+        var check = true;
+
+        for(var i=0; i<input.length; i++) {
+            if(validate(input[i]) == false){
+                showValidate(input[i]);
+                check=false;
+            }
+        }
+
+        return check;
+    });
+
+
+    $('.validate-form .input100').each(function(){
+        $(this).focus(function(){
+           hideValidate(this);
+        });
+    });
+
+    function validate (input) {
+        if($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
+            if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
+                return false;
+            }
+        }
+        else {
+            if($(input).val().trim() == ''){
+                return false;
+            }
+        }
+    }
+
+    function showValidate(input) {
+        var thisAlert = $(input).parent();
+
+        $(thisAlert).addClass('alert-validate');
+    }
+
+    function hideValidate(input) {
+        var thisAlert = $(input).parent();
+
+        $(thisAlert).removeClass('alert-validate');
+    }
+    
+    /*==================================================================
+    [ Show pass ]*/
+    var showPass = 0;
+    $('.btn-show-pass').on('click', function(){
+        if(showPass == 0) {
+			// <i class="fas fa-eye-slash"></i>
+            $(this).next('input').attr('type','text');
+            $(this).find('i').removeClass('fa-eye');
+            $(this).find('i').addClass('fa-eye-slash');
+            showPass = 1;
+        }
+        else {
+            $(this).next('input').attr('type','password');
+            $(this).find('i').addClass('fa-eye');
+            $(this).find('i').removeClass('fa-eye-slash');
+            showPass = 0;
+        }
+        
+    });
+
+
+})(jQuery);
+	</script>
+</body>
+</html>
+

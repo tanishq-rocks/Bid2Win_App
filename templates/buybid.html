@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block title %}
+Buy Bids
+{% endblock title %}
+
+{% block content %}
+
+<div class="row flex flex-row justify-center items-center">
+    <div class="col-11">
+        <h4 class="py-3 text-center bb tracked">Topup Packs</h4>
+        <div class="row flex flex-row justify-center items-center px-3 " >
+            <div class="w-100 shadow-sm" tabindex="0" data-toggle="tooltip" data-placement="bottom" title="You have {{a_bids.0.available_bid}} bids remaining">
+                <button class="btn br0 btn-success btn-block" style="pointer-events: none; " type="button" disabled>
+                    Available Bids &nbsp <span class="badge badge-light">  {{a_bids.0.available_bid}}</span>
+                </button>
+            </div>
+        </div>
+        {% if msg %}
+            {% if msg == 'TXN_SUCCESS' %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Transation Successful
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+            {% if msg == 'TXN_FAILURE' %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Transaction Failed
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+            {% if msg == 'PENDING' %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Transaction Pending
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+        {% endif %}
+        <div class="card my-4 shadow-sm">
+            <div class="card-body b--gray flex flex-row justify-between items-center">
+                <div class="f4">2 Bids <br /> <div class="f7 green">(plus one extra bid for first ever transaction) </div> </div>
+                <a href="{% url 'payment_page' 10 %}" class="btn btn-outline-dark px-3 link" ><div class=" "><i class="fas fa-rupee-sign"></i> 10</div></a>
+            </div>
+        </div>
+        <div class="card my-4 shadow-sm">
+            <div class="card-body b--gray flex flex-row justify-between items-center">
+                <div class="f4">10 Bids <br /> <div class="f7 green">(plus two extra bid for first ever transaction) </div> </div>
+                <a href="{% url 'payment_page' 35 %}" class="btn btn-outline-dark px-3 link" ><div class=" "><i class="fas fa-rupee-sign"></i> 35</div></a>
+            </div>
+        </div>
+        <div class="card my-4 shadow-sm">
+            <div class="card-body b--gray flex flex-row justify-between items-center">
+                <div class="f4">25 Bids</div>
+                <a href="{% url 'payment_page' 80 %}" class="btn btn-outline-dark px-3 link" ><div class=" "><i class="fas fa-rupee-sign"></i> 80</div></a>
+            </div>
+        </div>
+        <div class="card my-4 shadow-sm">
+            <div class="card-body b--gray flex flex-row justify-between items-center">
+                <div class="f4">40 Bids</div>
+                <a href="{% url 'payment_page' 120 %}" class="btn btn-outline-dark px-3 link" ><div class=" "><i class="fas fa-rupee-sign"></i> 120</div></a>
+            </div>
+        </div>
+        <div class="card my-4 shadow-sm">
+            <div class="card-body b--gray flex flex-row justify-between items-center">
+                <div class="f4">50 Bids</div>
+                <a href="{% url 'payment_page' 145 %}" class="btn btn-outline-dark px-3 link" ><div class=" "><i class="fas fa-rupee-sign"></i> 145</div></a>
+            </div>
+        </div>
+        <div class="card my-4 shadow-sm">
+            <div class="card-body b--gray flex flex-row justify-between items-center">
+                <div class="f4">100 Bids</div>
+                <a href="{% url 'payment_page' 260 %}" class="btn btn-outline-dark px-3 link" ><div class=" "><i class="fas fa-rupee-sign"></i> 260</div></a>
+            </div>
+        </div>
+        <div class="card my-4 shadow-sm">
+            <div class="card-body b--gray flex flex-row justify-between items-center">
+                <div class="f4">200 Bids</div>
+                <a href="{% url 'payment_page' 450 %}" class="btn btn-outline-dark px-3 link" ><div class=" "><i class="fas fa-rupee-sign"></i> 450</div></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+

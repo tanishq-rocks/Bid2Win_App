@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Select Bid
+{% endblock title %}
+
+{% block content %}
+
+{% include './partials/_spinner.html' %}
+<form name="f1" action="{% url 'redirect_view_to_selection' data %}" method="POST" >
+{% csrf_token %}
+  <script type="text/javascript">
+      setTimeout(()=>{
+        document.f1.submit()
+      }, 1000);
+  </script>
+</form>
+{% endblock content %}

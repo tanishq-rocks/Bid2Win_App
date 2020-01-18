@@ -1,0 +1,117 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bid2Win</title>
+    <link href="{% static './images/rocket.png' %}" rel="shortcut icon"/>
+    
+    <link rel="stylesheet" href="{% static './css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static './css/tachyons.css' %}">
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/ac8a934d8a.js" ></script>
+
+    <!-- Start WOWSlider.com HEAD section -->
+    <link rel="stylesheet" type="text/css" href="{% static './engine1/style.css'%}" />
+    <script type="text/javascript" src="{% static './engine1/jquery.js'%}"></script>
+    <!-- End WOWSlider.com HEAD section -->
+
+    {% block link %}
+
+    {% endblock link %}
+</head>
+<body style="background-color: #eee;" >
+    <div class="min-vh-90 fixed" style="left: 50%; top: 50%; transform: translate(-50%, -50%);" id="display_spinner">
+        {% include './partials/_spinner.html' %}
+    </div>
+    <div class="container-fluid">
+        <div class="row h-100">
+            <div class="col"></div>
+            <div class="col-md-5 col-lg-4 col-sm-12 ">
+                <div class="row z-999" style="position:-webkit-sticky; position:sticky; top:0;">
+                    <nav class="navbar bg-black-90 navbar-dark w-100">    
+                        <!-- Toggler/collapsibe Button -->
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                            <!-- <span class="navbar-toggler-icon"></span> -->
+                            <i class="fas fa-bars text-light dim"></i>
+                        </button>
+                        <!-- Brand -->
+                        <a class="navbar-brand f5" href="#">
+                        {% block title %}
+                        Bid 2 Win
+                        {% endblock title %}
+                        </a>
+                        <!-- Navbar links -->
+                        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                            <ul class="navbar-nav text-center">
+                                <li class="nav-item bb b--white">
+                                    <a class="nav-link f6" href="{% url 'index_page' %}">Home</a>
+                                </li>
+                                <li class="nav-item bb b--white">
+                                    <a class="nav-link f6" href="{% url 'about_page' %}">About Us</a>
+                                </li>
+                                <li class="nav-item bb b--white">
+                                    <a class="nav-link f6" href="{% url 'terms_n_conditions_page' %}">Terms & Conditions</a>
+                                </li>
+                                <!-- <li class="nav-item bb b--white">
+                                    <a class="nav-link f6" href="{% url 'faq_page' %}">FAQ</a>
+                                </li> -->
+                                {% if request.user.is_authenticated %}
+                                    <li class="nav-item">
+                                        <a class="nav-link f6" href="{% url 'logout' %}">Log out</a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item">
+                                        <a class="nav-link f6" href="{% url 'login' %}">Login | Sign Up</a>
+                                    </li>
+                                {% endif %}
+                                
+                                
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <div class="min-vh-90">
+                    <div class="dn min-vh-90" id="display_body">
+                    {% block content %}
+                        
+                    {% endblock content %}
+                    </div>
+                </div>
+            </div>
+        <div class="col"></div>
+        </div>
+        {% comment %} {% if '/selection/' not in request.path %} {% endcomment %}
+        <div class="row" style="position:-webkit-sticky; position:sticky; bottom:0;">
+            <ul class="nav f7 bg-black-90 nav-justified m-auto col-md-5 col-lg-4 col-sm-12">
+            {% comment %} {% if request.user.is_authenticated %} {% endcomment %}
+                <li class="nav-item">
+                    <a class="nav-link text-white dim" href="{% url 'livebid_page' %}"><i class="fab fa-sith f5"></i><br />Place Bid</a>
+                <li>
+                <li class="nav-item">
+                    <a class="nav-link text-white dim" href="{% url 'buybid_page' %}"><i class="fas fa-cart-plus f5"></i><br />Buy Bids</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white dim" href="{% url 'winner_page' %}"><i class="fas fa-trophy f5"></i><br />Winner</a>
+                </li>
+            {% comment %} {% endif %} {% endcomment %}
+            </ul>
+        </div>
+        {% comment %} {% endif %} {% endcomment %}
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('#display_body').removeClass('dn');
+        $('#display_spinner').addClass('dn');
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
